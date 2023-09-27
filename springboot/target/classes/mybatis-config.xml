@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <typeAliases>
+        <package name="com.linphilip.springboot.model"/>
+    </typeAliases>
+
+    <!--environments:配置數據庫連接環境訊息，可以配置多個environment，通過default屬性切換不同environment-->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql:///project?useSSL=false"/>
+                <property name="username" value="root"/>
+                <property name="password" value="1234"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <!--<mapper resource="com/linphilip/springboot/dao/UserMapper.xml"/>-->
+
+        <!--Mapper代理方式-->
+        <package name="com.linphilip.springboot.dao"/>
+    </mappers>
+</configuration>
