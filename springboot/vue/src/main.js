@@ -8,7 +8,7 @@ import request from './utils/request'
 
 Vue.config.productionTip = false
 
-Vue.use(ElementUI, {size: "small"});
+Vue.use(ElementUI, {size: "mini"});
 
 // Vue.prototype.request = request
 
