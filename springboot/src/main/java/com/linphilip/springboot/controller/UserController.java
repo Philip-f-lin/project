@@ -38,6 +38,12 @@ public class UserController {
         return userService.removeById(id);
     }
 
+    // 多個刪除
+    @PostMapping("/del/batch")
+    public boolean deleteBatch(@RequestBody List<Integer> ids) {
+        return userService.removeBatchByIds(ids);
+    }
+
     /*// 分頁查詢
     @GetMapping("/page")
     public Map<String, Object> findPage(@RequestParam Integer pageNum,
