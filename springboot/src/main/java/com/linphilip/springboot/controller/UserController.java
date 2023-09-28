@@ -57,10 +57,9 @@ public class UserController {
 
     // 分頁查詢
     @GetMapping("/page")
-    public IPage<User> findPage(@Param("pageNum") Integer pageNum,
-                                @Param("pageSize") Integer pageSize,
-                                @Param("username") String username) {
-
+    public IPage<User> findPage(@RequestParam Integer pageNum,
+                                @RequestParam Integer pageSize,
+                                @RequestParam(defaultValue = "") String username) {
         IPage<User> page = new Page<>(pageNum, pageSize);
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.like("username", username);
