@@ -1,3 +1,4 @@
+/*
 import axios from 'axios'
 
 const request = axios.create({
@@ -41,3 +42,4 @@ request.interceptors.response.use(
 
 export default request
 
+*/
