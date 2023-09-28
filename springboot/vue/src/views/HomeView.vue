@@ -67,16 +67,18 @@
       <el-main>
 
         <div style="margin: 10px 0">
-          <el-input style="width: 200px" pleaceholder="請輸入名稱" suffix-icon="el-icon-search" v-model="username"></el-input>
-          <el-input style="width: 200px" pleaceholder="請輸入信箱" suffix-icon="el-icon-message"
-                    class="ml-5"></el-input>
-          <el-input style="width: 200px" pleaceholder="請輸入地址" suffix-icon="el-icon-position"
-                    class="ml-5"></el-input>
+          <el-input style="width: 200px" placeholder="請輸入名稱" suffix-icon="el-icon-search"
+                    v-model="username"></el-input>
+          <el-input style="width: 200px" placeholder="請輸入信箱" suffix-icon="el-icon-message" class="ml-5"
+                    v-model="email"></el-input>
+          <el-input style="width: 200px" placeholder="請輸入地址" suffix-icon="el-icon-position" class="ml-5"
+                    v-model="address"></el-input>
           <el-button class="ml-5" type="primary" @click="load">搜尋</el-button>
+          <el-button type="warning" @click="reset">重置</el-button>
         </div>
 
         <div style="margin: 10px 0">
-          <el-button type="primary">新增 <i class="el-icon-circle-plus-outline"></i></el-button>
+          <el-button type="primary" @click="handleAdd">新增 <i class="el-icon-circle-plus-outline"></i></el-button>
           <el-button type="danger">刪除 <i class="el-icon-remove-outline"></i></el-button>
           <el-button type="primary">下載 <i class="el-icon-bottom"></i></el-button>
           <el-button type="primary">上傳 <i class="el-icon-top"></i></el-button>
@@ -84,8 +86,8 @@
 
         <el-table :data="tableData" border stripe :header-cell-class-name="headerBg">
           <el-table-column prop="id" label="ID" width="80"></el-table-column>
-          <el-table-column prop="username" label="使用者名稱" width="140"></el-table-column>
-          <el-table-column prop="nickname" label="暱稱" width="120"></el-table-column>
+          <el-table-column prop="username" label="帳號" width="140"></el-table-column>
+          <el-table-column prop="nickname" label="姓名" width="120"></el-table-column>
           <el-table-column prop="email" label="信箱"></el-table-column>
           <el-table-column prop="phone" label="電話"></el-table-column>
           <el-table-column prop="address" label="地址"></el-table-column>
@@ -107,6 +109,32 @@
               :total="total">
           </el-pagination>
         </div>
+
+        <el-dialog title="使用者資訊" :visible.sync="dialogFormVisible" width="30%">
+          <el-form label-width="80px" size="small">
+            <el-form-item label="帳號">
+              <el-input v-model="form.username" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="姓名">
+              <el-input v-model="form.nickname" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="信箱">
+              <el-input v-model="form.email" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="電話">
+              <el-input v-model="form.phone" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="地址">
+              <el-input v-model="form.address" autocomplete="off"></el-input>
+            </el-form-item>
+
+          </el-form>
+          <div slot="footer" class="dialog-footer">
+            <el-button @click="dialogFormVisible = false">取 消</el-button>
+            <el-button type="primary" @click="save">確 定</el-button>
+          </div>
+        </el-dialog>
+
       </el-main>
     </el-container>
   </el-container>
@@ -121,9 +149,13 @@ export default {
     return {
       tableData: [],
       total: 0,
-      pageNum:1,
-      pageSize:2,
-      username:"",
+      pageNum: 1,
+      pageSize: 2,
+      username: "",
+      email: "",
+      address: "",
+      form:{},
+      dialogFormVisible: false,
       msg: "Hello Vue",
       collapseBtnClass: 'el-icon-s-fold',
       isCollapse: false,
@@ -149,19 +181,54 @@ export default {
       }
     },
     load() {
-      fetch("http://localhost:9090/user/page?pageNum=" + this.pageNum + "&pageSize=" + this.pageSize+ "&username=" + this.username)
+      this.request.get("http://localhost:9090/user/page", {
+        params: {
+          pageNum: this.pageNum,
+          pageSize: this.pageSize,
+          username: this.username,
+          email: this.email,
+          address: this.address
+        }
+      }).then(res => {
+        console.log(res)
+
+        this.tableData = res.records;
+        this.total = res.total;
+      })
+
+      /*fetch("http://localhost:9090/user/page?pageNum=" + this.pageNum + "&pageSize=" + this.pageSize+ "&username=" + this.username)
           .then(res => res.json())
           .then(res => {
         console.log(res)
         this.tableData = res.records;
         this.total = res.total;
+      })*/
+    },
+    save(){
+      this.request.post("http://localhost:9090/user/save", this.form).then(res =>{
+        if(res){
+          this.$message.success("儲存成功")
+          this.dialogFormVisible = false;
+        }else{
+          this.$message.error("儲存失敗")
+        }
       })
+    },
+    handleAdd(){
+      this.dialogFormVisible = true
+      this.form = {}
+    },
+    reset() {
+      this.username = ""
+      this.email = ""
+      this.address = ""
+      this.load()
     },
     handleSizeChange(pageSize) {
       console.log(pageSize)
       this.pageSize = pageSize
       this.load()
-    },handleCurrentChange(pageNum) {
+    }, handleCurrentChange(pageNum) {
       console.log(pageNum)
       this.pageNum = pageNum
       this.load()

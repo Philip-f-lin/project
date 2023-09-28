@@ -10,7 +10,7 @@ Vue.config.productionTip = false
 
 Vue.use(ElementUI, {size: "mini"});
 
-// Vue.prototype.request = request
+Vue.prototype.request = request
 
 new Vue({
   router,
