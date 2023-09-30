@@ -3,10 +3,12 @@ package com.linphilip.springboot.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.linphilip.springboot.dto.UserRequest;
 import com.linphilip.springboot.model.User;
 import com.linphilip.springboot.service.UserService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -21,13 +23,24 @@ public class UserController {
     private UserService userService;
 
     // 新增和修改
+    @PostMapping("/login")
+    public boolean login(@RequestBody UserRequest userRequest) {
+        String username = userRequest.getUsername();
+        String password = userRequest.getPassword();
+        if(StringUtils.isEmpty(username) || StringUtils.isEmpty(password)){
+            return false;
+        }
+        return userService.login(userRequest);
+    }
+
+    // 新增和修改
     @PostMapping("/save")
     public boolean save(@RequestBody User user) {
         return userService.saveUser(user);
     }
 
     // 查詢所有
-    @GetMapping("/")
+    @GetMapping("/findAll")
     public List<User> findAll() {
         return userService.list();
     }

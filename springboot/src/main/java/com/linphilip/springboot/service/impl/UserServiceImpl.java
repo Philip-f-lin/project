@@ -1,9 +1,12 @@
 package com.linphilip.springboot.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.linphilip.springboot.dao.UserMapper;
+import com.linphilip.springboot.dto.UserRequest;
 import com.linphilip.springboot.model.User;
 import com.linphilip.springboot.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +46,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return saveOrUpdate(user);
 
 
+
+    }
+
+    @Override
+    public boolean login(UserRequest userRequest) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username", userRequest.getUsername());
+        queryWrapper.eq("password", userRequest.getPassword());
+        try{
+            User one= getOne(queryWrapper);
+            return one != null;
+        }catch (Exception e){
+            return false;
+        }
 
     }
 }
