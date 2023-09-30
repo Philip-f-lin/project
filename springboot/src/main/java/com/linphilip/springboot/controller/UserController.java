@@ -44,7 +44,7 @@ public class UserController {
         return userService.removeBatchByIds(ids);
     }
 
-    /*// 分頁查詢
+    /*// 分頁查詢 Mybatis
     @GetMapping("/page")
     public Map<String, Object> findPage(@RequestParam Integer pageNum,
                                         @RequestParam Integer pageSize,
@@ -61,7 +61,7 @@ public class UserController {
         return map;
     }*/
 
-    // 分頁查詢
+    // 分頁查詢 MybatisPlus
     @GetMapping("/page")
     public IPage<User> findPage(@RequestParam Integer pageNum,
                                 @RequestParam Integer pageSize,
