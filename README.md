@@ -38,6 +38,29 @@ npm run serve
 
 執行後輸入 'http://localhost:8085/' 進入到使用者管理頁面    
 
+# 1. 新增
+• 點擊新增後，並輸入資訊，即可在頁面展示  
+<img width="1355" alt="截圖 2023-10-02 下午9 54 00" src="https://github.com/Philip-f-lin/project/assets/133033495/1c3dd8ad-75d2-4874-b014-19a77aa6ba20">
+<img width="1351" alt="截圖 2023-10-02 下午9 54 39" src="https://github.com/Philip-f-lin/project/assets/133033495/beaf89d5-5517-44ff-a6a6-bb22fe5bde65">
+<img width="1353" alt="截圖 2023-10-02 下午9 57 10" src="https://github.com/Philip-f-lin/project/assets/133033495/244a4455-be4a-45f3-8132-9e7093955700">
+
+# 2. 刪除  
+• 單個刪除  
+• 透過多選框進行多個刪除  
+<img width="1355" alt="截圖 2023-10-02 下午10 02 51" src="https://github.com/Philip-f-lin/project/assets/133033495/1d96817d-2079-4c9c-aa74-c5673917b5bf">
+<img width="1354" alt="截圖 2023-10-02 下午10 03 52" src="https://github.com/Philip-f-lin/project/assets/133033495/b1139c9d-b1be-4992-90f5-8c3ef5dc713e">
+<img width="1354" alt="截圖 2023-10-02 下午10 00 17" src="https://github.com/Philip-f-lin/project/assets/133033495/8b1dcf38-57da-4d8b-8ae3-81e9157757ab">
+<img width="1352" alt="截圖 2023-10-02 下午10 01 56" src="https://github.com/Philip-f-lin/project/assets/133033495/dac830d1-4c2f-4e05-994f-7da9216893a8">
+
+
+# 3. 修改
+• 點擊編輯後，會顯示可以修改的資訊  
+• 修改完成後，在頁面顯示修改成功及展示修改內容  
+
+
+# 4. 查詢
+• 點擊編輯後，會顯示可以修改的資訊  
+
 
 
 
